@@ -1,0 +1,90 @@
+
+
+
+// responsivo
+$desdeT: 150px
+$hastaT: 767px
+
+$desdeM: $hastaT + 1
+$hastaM: 992px
+
+$desdeG: $hastaM
+$hastaG: $desdeG + 500
+
+@mixin responsivo($media)
+    @if $media == telefonoTable
+        @media only screen and (min-width: $desdeT) and (max-width: $hastaT)
+            @content
+    @else if $media == pcMedio
+        @media only screen and (min-width: $desdeM) and (max-width: $hastaM)
+            @content
+    @else if $media == general
+        @media only screen and (min-width: $desdeG) and (max-width: $hastaG)
+            @content
+    @else if $media == resto
+        @media only screen and (min-width: $hastaG + 1)
+            @content
+    @else if $media == specialTexts
+        @media only screen and (min-width: 992px) and (max-width: 1199px)
+            @content
+    @else if $media == smallPcTablet
+        @media only screen and (min-width: 992px) and (max-width: 1199px)
+            @content
+
+@mixin responsivoSpecial($desde, $hasta)
+    @media only screen and (min-width: $desde) and (max-width: $hasta)
+        @content
+
+
+@import variables
+@import generals
+
+
+
+
+.site-header .sub-menu
+    .user-name
+        color: grey!important
+        font-weight: 400!important
+
+.bb-template-v2 .site-header .user-wrap.menu-item-has-children
+    .user-link
+        transition: $trans
+        &:hover
+            .user-name
+                color: grey
+                font-weight: 400!important
+
+.user-wrap.user-wrap-container.menu-item-has-children.selected
+    .user-name
+        color: grey!important
+        font-weight: 400!important
+
+
+.learndash-wrapper .ld-alert
+    background-color: #F2F4F5!important
+    .ld-alert-icon.ld-icon.ld-icon-alert
+        font-size: 25px
+    .ld-alert-messages
+        font-size: 18px
+    &.ld-alert-warning
+        border-color: salmon!important
+
+        .ld-alert-icon.ld-icon.ld-icon-alert
+            color: salmon!important
+        .ld-alert-messages
+            color: salmon!important
+
+.site-header .bb-toggle-panel i
+    color: white!important
+
+.ld-table-list-header.ld-primary-background
+    padding: 5px 15px!important
+
+
+a#bb-toggle-theme
+    display: none
+
+
+.ld-breadcrumbs-segments
+    font-size: 16px!important
