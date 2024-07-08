@@ -57,9 +57,9 @@ jobs:
           password: ${{ secrets.PROD_PASS }}
           port: ${{ secrets.PROD_PORT }}
           script: |
-            sudo rm -rf ${{ secrets.PROD_DEPLOY_PATH }}
-            sudo unzip /tmp/build.zip -d /tmp/build
-            sudo mkdir -p ${{ secrets.PROD_DEPLOY_PATH }}
-            sudo mv /tmp/build/* ${{ secrets.PROD_DEPLOY_PATH }}
-            sudo rm -rf /tmp/build
-            sudo rm /tmp/build.zip
+            rm -rf ${{ secrets.PROD_DEPLOY_PATH }}
+            unzip /tmp/build.zip -d /tmp/build
+            mkdir -p ${{ secrets.PROD_DEPLOY_PATH }}
+            mv /tmp/build/* ${{ secrets.PROD_DEPLOY_PATH }}
+            rm -rf /tmp/build
+            rm /tmp/build.zip
