@@ -1,0 +1,65 @@
+
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
+jobs:
+  avoid_reduncy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Redundant Builds
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+  build-and-deploy:
+    needs: [avoid_reduncy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+    #   # Install Composer dependencies
+    #   - name: Install Composer Dependencies
+    #     run: composer install --no-dev --optimize-autoloader
+
+    #   # Install Node.js dependencies
+    #   - name: Install Node.js Dependencies
+    #     run: yarn install
+
+    #   # Build assets with Yarn
+    #   - name: Build Assets
+    #     run: yarn build
+
+      - name: Archive Build Output
+        # run: zip -r build.zip vendor static src resources assets
+        run: zip -r build.zip . -x ".github" "package.json" "gulpfile.js" "README.md" ".gitignore"
+
+      - name: Copy Files to Server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          password: ${{ secrets.PROD_PASS }}
+          port: ${{ secrets.PROD_PORT }}
+          source: "build.zip"
+          target: "/tmp"
+
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.PROD_HOST }}
+          username: ${{ secrets.PROD_USER }}
+          password: ${{ secrets.PROD_PASS }}
+          port: ${{ secrets.PROD_PORT }}
+          script: |
+            sudo rm -rf ${{ secrets.PROD_DEPLOY_PATH }}
+            sudo unzip /tmp/build.zip -d /tmp/build
+            sudo mkdir -p ${{ secrets.PROD_DEPLOY_PATH }}
+            sudo mv /tmp/build/* ${{ secrets.PROD_DEPLOY_PATH }}
+            sudo rm -rf /tmp/build
+            sudo rm /tmp/build.zip
