@@ -26,7 +26,7 @@ function redirect_to_login_if_not_logged_in() {
         $requested_url = $_SERVER['REQUEST_URI'];
 
         if (!is_page(array('wp-login.php', 'registro')) && strpos($requested_url, '/activate') === false) {
-            wp_redirect('/wp-login.php');
+            wp_redirect('/cursos-lui/wp-login.php');
             exit();
         }
     }
