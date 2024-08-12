@@ -93,8 +93,14 @@ a#bb-toggle-theme
 .learndash-wrapper .ld-table-list-header.ld-primary-background
     color: white!important
 
+a,
+button
+    &:hover
+        cursor: pointer!important
 
 .bb-header-buttons
     a.button.small.signup
-        &:hover
+        &:hover,
+        &:focus,
+        &:active
             color: #003366!important
