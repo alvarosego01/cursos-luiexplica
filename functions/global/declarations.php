@@ -1,9 +1,9 @@
 <?php
 
-
 function init_scripts_styles()
 {
-    wp_enqueue_style('Main.Css', ROOT_PATH . '/dist/styles/main.css', false, wp_get_theme()->get('Version'));
+
+    wp_enqueue_style('Main.Css', ROOT_PATH . '/dist/styles/main.css', false, THEME_VERSION);
 
     // wp_enqueue_script('Main.js', get_stylesheet_directory_uri() . '/dist/scripts/main.js', ['jquery'], wp_get_theme()->get('Version'), true);
 
@@ -21,12 +21,26 @@ add_action('template_redirect', 'redirect_to_login_if_not_logged_in');
 
  */
 
-function redirect_to_login_if_not_logged_in() {
-    if (!is_user_logged_in()) {
-        $requested_url = $_SERVER['REQUEST_URI'];
+function setTypeUrl()
+{
+    if ($_SERVER['SERVER_NAME'] == 'localhost') {
+        return '/cursos-lui';
+    } else {
+        return '';
+    }
+}
 
-        if (!is_page(array('wp-login.php', 'registro')) && strpos($requested_url, '/activate') === false) {
-            wp_redirect('/wp-login.php');
+function redirect_to_login_if_not_logged_in()
+{
+    global $pagenow;
+
+    if (!is_user_logged_in()) {
+
+        $requested_url = $_SERVER['REQUEST_URI'];
+        $redirect = setTypeUrl() . '/wp-login.php';
+
+        if (($pagenow != 'wp-login.php') && !is_page('registro') && strpos($requested_url, '/activate') === false) {
+            wp_redirect($redirect);
             exit();
         }
     }

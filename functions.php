@@ -1,6 +1,7 @@
 <?php
 
-define('THEME_VERSION', wp_get_theme()->get('Version'));
+$theme = wp_get_theme();
+define('THEME_VERSION', $theme->Version);
 
 define('ROOT_PATH', get_stylesheet_directory_uri());
 
