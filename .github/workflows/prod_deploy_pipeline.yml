@@ -26,15 +26,12 @@ jobs:
     #   # Install Composer dependencies
     #   - name: Install Composer Dependencies
     #     run: composer install --no-dev --optimize-autoloader
-
     #   # Install Node.js dependencies
     #   - name: Install Node.js Dependencies
     #     run: yarn install
-
     #   # Build assets with Yarn
     #   - name: Build Assets
     #     run: yarn build
-
       - name: Archive Build Output
         # run: zip -r build.zip vendor static src resources assets
         run: zip -r build.zip . -x ".github" "package.json" "gulpfile.js" "README.md" ".gitignore"
