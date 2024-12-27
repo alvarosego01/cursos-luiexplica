@@ -39,16 +39,25 @@ function redirect_to_login_if_not_logged_in()
         $requested_url = $_SERVER['REQUEST_URI'];
         $redirect = setTypeUrl() . '/wp-login.php';
 
-        if (strpos($requested_url, '/public/') !== false) {
+        $slug = trim(parse_url($requested_url, PHP_URL_PATH), '/');
+        $slug = strtolower($slug);
+
+        if (strpos($slug, 'public/') !== false) {
             // wp_redirect($redirect);
             return;
             exit();
         }
 
-        if (($pagenow != 'wp-login.php') && !is_page('registro') && strpos($requested_url, '/activate') === false) {
+        // if (($pagenow != 'wp-login.php') && !is_page('registro') && strpos($slug, '/activate') === false) {
+        //     wp_redirect($redirect);
+        //     exit();
+        // }
+
+        if ($pagenow != 'wp-login.php' && $slug !== 'registro' && strpos($slug, 'activate') === false) {
             wp_redirect($redirect);
             exit();
         }
+
     }
 }
 add_action('template_redirect', 'redirect_to_login_if_not_logged_in');
