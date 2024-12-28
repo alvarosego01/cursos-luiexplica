@@ -43,7 +43,7 @@ function redirect_to_login_if_not_logged_in()
         $slug = strtolower($slug);
 
 
-        if (strpos($slug, 'public/') !== false || strpos($slug, 'landing/') !== false || strpos($slug, 'lost-password') === false) {
+        if (strpos($slug, 'public/') !== false || strpos($slug, 'landing/') !== false || strpos($slug, 'lost-password/') === false) {
             return;
             exit();
         }
