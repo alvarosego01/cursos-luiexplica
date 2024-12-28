@@ -58,7 +58,7 @@ function redirect_to_login_if_not_logged_in()
         //     exit();
         // }
 
-        if ($pagenow != 'wp-login.php' && $slug !== 'registro' && strpos($slug, 'activate') === false) {
+        if ($pagenow != 'wp-login.php' && $slug !== 'registro' && strpos($slug, 'activate') === false && strpos($slug, 'lost-password') === false) {
             wp_redirect($redirect);
             exit();
         }
