@@ -23,12 +23,12 @@
     gulp.task('browserSync-Local', () => {
 
         browserSync.init({
-            logPrefix: "cursos-lui",
+            logPrefix: "mentora-lui",
             open: false,
 
             notify: true,
             injectChanges: true,
-            proxy: "localhost/cursos-lui/",
+            proxy: "mentora.dev",
             files: ['dist/styles/**'],
             port: 3025,
             serveStatic: ["assets/css"],
@@ -55,7 +55,7 @@
             online: true,
             notify: true,
             injectChanges: true,
-            proxy: "https://cursos.luiexplica.com/",
+            proxy: "https://mentora.luiexplica.com/",
 
             serveStatic: ["dist/styles"],
             files: "dist/styles/global.css",
