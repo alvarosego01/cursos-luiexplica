@@ -43,14 +43,14 @@ function redirect_to_login_if_not_logged_in()
         $slug = strtolower($slug);
 
 
-        if (strpos($slug, 'public/') !== false || strpos($slug, 'landing/') !== false) {
+        if (strpos($slug, 'public/') !== false || strpos($slug, 'landing/') !== false || strpos($slug, 'lost-password') === false) {
             return;
             exit();
         }
         // if (strpos($slug, 'public/') !== false) {
         //     // wp_redirect($redirect);
         //     return;
-            // exit();
+        // exit();
         // }
 
         // if (($pagenow != 'wp-login.php') && !is_page('registro') && strpos($slug, '/activate') === false) {
@@ -58,11 +58,48 @@ function redirect_to_login_if_not_logged_in()
         //     exit();
         // }
 
-        if ($pagenow != 'wp-login.php' && $slug !== 'registro' && strpos($slug, 'activate') === false && strpos($slug, 'lost-password') === false) {
+        if ($pagenow != 'wp-login.php' && $slug !== 'registro' && strpos($slug, 'activate') === false) {
             wp_redirect($redirect);
             exit();
         }
-
     }
 }
 add_action('template_redirect', 'redirect_to_login_if_not_logged_in');
+
+
+function render_custom_lost_password_form()
+{
+    ob_start();
+
+    $key = isset($_GET['key']) ? sanitize_text_field($_GET['key']) : '';
+    $login = isset($_GET['login']) ? sanitize_text_field($_GET['login']) : '';
+    $action = isset($_GET['action']) ? sanitize_text_field($_GET['action']) : '';
+
+    if ($action === 'newaccount') {
+
+        echo '<h1>Nueva cuenta</h1>';
+
+    }
+
+    if (!empty($key) && !empty($login)) {
+        $user = check_password_reset_key($key, $login);
+
+        if (is_wp_error($user)) {
+            echo '<p>' . __('El enlace no es válido o ha caducado. Por favor, solicita un nuevo enlace.', 'woocommerce') . '</p>';
+        } else {
+            echo '<div class="woocommerce-reset-password">';
+            wc_get_template(
+                'myaccount/form-reset-password.php',
+                array(
+                    'key'   => $key,
+                    'login' => $login,
+                )
+            );
+            echo '</div>';
+        }
+    } else {
+        echo '<p>' . __('Parámetros inválidos. Por favor, revisa tu enlace.', 'woocommerce') . '</p>';
+    }
+    return ob_get_clean();
+}
+add_shortcode('custom_lost_password', 'render_custom_lost_password_form');
