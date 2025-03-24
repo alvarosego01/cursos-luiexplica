@@ -1,4 +1,4 @@
 <?php
 
 require "global/declarations.php";
-require "pages/assistVirt1.php";
+// require "pages/assistVirt1.php";
