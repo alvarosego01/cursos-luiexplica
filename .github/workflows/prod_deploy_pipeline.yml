@@ -9,16 +9,15 @@ on:
 
 jobs:
   avoid_reduncy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Cancel Previous Redundant Builds
         uses: styfle/cancel-workflow-action@0.9.1
         with:
           access_token: ${{ github.token }}
-
   build-and-deploy:
     needs: [avoid_reduncy]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -26,15 +25,12 @@ jobs:
     #   # Install Composer dependencies
     #   - name: Install Composer Dependencies
     #     run: composer install --no-dev --optimize-autoloader
-
     #   # Install Node.js dependencies
     #   - name: Install Node.js Dependencies
     #     run: yarn install
-
     #   # Build assets with Yarn
     #   - name: Build Assets
     #     run: yarn build
-
       - name: Archive Build Output
         # run: zip -r build.zip vendor static src resources assets
         run: zip -r build.zip . -x ".github" "package.json" "gulpfile.js" "README.md" ".gitignore"
@@ -57,9 +53,9 @@ jobs:
           password: ${{ secrets.PROD_PASS }}
           port: ${{ secrets.PROD_PORT }}
           script: |
-            sudo rm -rf ${{ secrets.PROD_DEPLOY_PATH }}
-            sudo unzip /tmp/build.zip -d /tmp/build
-            sudo mkdir -p ${{ secrets.PROD_DEPLOY_PATH }}
-            sudo mv /tmp/build/* ${{ secrets.PROD_DEPLOY_PATH }}
-            sudo rm -rf /tmp/build
-            sudo rm /tmp/build.zip
+            rm -rf ${{ secrets.PROD_DEPLOY_PATH }}
+            unzip /tmp/build.zip -d /tmp/build
+            mkdir -p ${{ secrets.PROD_DEPLOY_PATH }}
+            mv /tmp/build/* ${{ secrets.PROD_DEPLOY_PATH }}
+            rm -rf /tmp/build
+            rm /tmp/build.zip
