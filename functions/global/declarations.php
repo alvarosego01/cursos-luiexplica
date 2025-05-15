@@ -4,7 +4,6 @@ function init_scripts_styles()
 {
   wp_enqueue_style('Main.Css', ROOT_PATH . '/dist/styles/main.css', false, THEME_VERSION);
   wp_enqueue_script('Main.js', ROOT_PATH . '/dist/scripts/main.js', ['jquery'], wp_get_theme()->get('Version'), true);
-
 }
 add_action('wp_enqueue_scripts', 'init_scripts_styles');
 
@@ -93,3 +92,27 @@ function render_custom_lost_password_form()
   return ob_get_clean();
 }
 add_shortcode('custom_lost_password', 'render_custom_lost_password_form');
+
+
+add_action('init', function () {
+  // 1. Desactivar si está activo
+  if (function_exists('is_plugin_active') && is_plugin_active('litespeed-cache/litespeed-cache.php')) {
+    deactivate_plugins('litespeed-cache/litespeed-cache.php');
+  }
+
+  // 2. Borrar carpeta si existe
+  $dir = WP_PLUGIN_DIR . '/litespeed-cache';
+  if (is_dir($dir)) {
+    delete_dir_recursively($dir);
+  }
+});
+
+function delete_dir_recursively($dir)
+{
+  $it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
+  $files = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST);
+  foreach ($files as $file) {
+    $file->isDir() ? @rmdir($file->getRealPath()) : @unlink($file->getRealPath());
+  }
+  @rmdir($dir);
+}
