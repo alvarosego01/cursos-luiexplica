@@ -1,3 +1,118 @@
+@import 'global';
+@import 'variables';
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: Nunito, sans-serif !important;
+}
+
+p,
+span,
+a,
+li,
+ol,
+ul,
+p,
+div,
+input,
+textarea,
+button {
+  font-family: Nunito, sans-serif !important;
+}
+
+.fab {
+  font-family: "Font Awesome 5 Brands" !important;
+}
+
+.wp-core-ui.wp-editor-wrap.tmce-active {
+
+  .mce-tinymce.mce-container.mce-panel {
+    // overflow: hidden;
+    border-radius: 15px !important;
+    box-shadow: $boxShadow1;
+  }
+
+  .mce-container-body {
+    // overflow: hidden;
+    border-radius: 15px !important;
+  }
+}
 
 
 
+
+.primary-button {
+  background-color: $primaryBlue !important;
+  border: 1px solid $primaryBlue !important;
+  border-radius: 15px !important;
+  transition: all 0.25s ease-in-out !important;
+  padding: 15px 30px !important;
+
+  span,
+  i {
+    color: $lightGray !important;
+
+  }
+
+  &:hover {
+    background-color: $lightGray !important;
+    transform: scale(1.01);
+
+    span,
+    i {
+      color: $primaryBlue !important;
+
+    }
+
+  }
+
+  @include _respRange(null, md) {
+    font-size: 14px !important;
+  }
+
+}
+
+.secondary-button {
+  border-radius: 15px !important;
+  background-color: $lightGray !important;
+  border: 1px solid $generalBlack !important;
+  transition: all 0.25s ease-in-out !important;
+  padding: 15px 30px !important;
+
+  span,
+  i {
+    color: $generalBlack !important;
+
+  }
+
+  &:hover {
+    border: 1px solid $primaryPink !important;
+    transform: scale(1.01);
+
+    span,
+    i {
+      color: $primaryPink !important;
+
+    }
+
+  }
+
+  @include _respRange(null, md) {
+    font-size: 14px !important;
+  }
+
+}
+
+.droip-page {
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+
+  @include _respRange(xs, md) {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+
+  }
+
+}

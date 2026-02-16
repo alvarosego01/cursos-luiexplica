@@ -1,0 +1,48 @@
+#tutor-page-wrap>div.tutor-course-single-content-wrapper.tutor-spotlight-mode {
+
+  .tutor-course-single-sidebar-wrapper.tutor-lesson-sidebar {
+
+    .tutor-course-single-sidebar-title {
+      padding: 20px;
+      span {
+        font-weight: 600;
+
+      }
+    }
+
+    .tutor-course-topic {
+      padding: 0;
+
+      .tutor-accordion-item-header {
+        // padding: 10px 0;
+        padding-left: 15px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .tutor-accordion-item-header.is-active {
+        background-color: $thirdBlue;
+
+        .tutor-course-topic-title,
+        .tutor-course-topic-summary {
+          color: $generalWhite;
+        }
+
+      }
+
+      .tutor-accordion-item-body {
+
+        .tutor-course-topic-item.tutor-course-topic-item-lesson a {
+          padding-left: 15px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

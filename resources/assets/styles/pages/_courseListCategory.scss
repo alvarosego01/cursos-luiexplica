@@ -1,0 +1,109 @@
+/* 
+archive tax-course-category term-ecommerce term-126 logged-in admin-bar wp-embed-responsive wp-theme-tutorbase wp-child-theme-lui-child theme-tutorbase tutor-lms woocommerce-js customize-support expansion-alids-init
+ */
+
+.archive.tax-course-category.tutor-lms {
+  background-color: #f5f5f5;
+
+
+  .tutor-wrap.tutor-wrap-parent.tutor-courses-wrap.tutor-container.course-archive-page {
+    padding: 100px 0;
+
+
+
+  }
+
+
+  .tutor-course-filter {
+    margin-bottom: 15px;
+
+    .tutor-form-control.tutor-form-select.tutor-js-form-select {
+      border: none !important;
+      box-shadow: $boxShadow1;
+    }
+
+  }
+
+  .tutor-course-list.tutor-grid {
+
+    .tutor-card.tutor-course-card {
+      border-radius: 10px;
+      overflow: hidden;
+      border: none;
+      box-shadow: $boxShadow1;
+
+      .tutor-course-bookmark {
+        a {
+          background-color: $thirdBlue;
+          border-color: $thirdBlue;
+          color: white;
+
+        }
+
+        &:hover {
+          a {
+            background-color: $primaryBlue;
+            border-color: $primaryBlue;
+            color: white;
+          }
+        }
+      }
+
+      .tutor-course-name {
+        margin-top: 5px;
+        margin-bottom: 25px;
+
+        a {
+          text-decoration: none;
+          line-height: 1.1 !important;
+          display: block;
+          font-weight: 600;
+          font-size: 18px;
+        }
+      }
+
+      .tutor-meta {
+        margin-top: 0
+      }
+
+      .tutor-card-footer,
+      .tutor-card-body {
+        padding: 20px;
+      }
+
+      .tutor-card-footer {
+        border-top: rgba(0, 0, 0, 0.1) solid 1px;
+
+        .list-item-button {
+          a {
+            background-color: $thirdBlue;
+            border-color: $thirdBlue;
+            color: white;
+
+
+
+          }
+
+          &:hover {
+            a {
+              background-color: $primaryBlue;
+              border-color: $primaryBlue;
+              color: white;
+            }
+          }
+        }
+
+      }
+
+    }
+
+  }
+
+  .tutor-pagination {
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: $boxShadow1;
+  }
+
+}

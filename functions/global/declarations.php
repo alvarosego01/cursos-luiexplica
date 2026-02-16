@@ -107,9 +107,3 @@ function delete_dir_recursively($dir)
   @rmdir($dir);
 }
 
-function mostrar_page_id() {
-    if (is_page() || is_single()) {
-        echo '<div style="position: fixed; bottom: 0; left: 0; background: yellow; padding: 5px; z-index: 9999;">Page ID: ' . get_the_ID() . '</div>';
-    }
-}
-add_action('wp_footer', 'mostrar_page_id');

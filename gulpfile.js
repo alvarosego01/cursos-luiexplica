@@ -1,4 +1,3 @@
-
 'use strict';
 
 const browserSync = require('browser-sync').create(),
@@ -23,21 +22,30 @@ var i;
 gulp.task('browserSync-Local', () => {
 
   browserSync.init({
-    logPrefix: "mentora-lui",
+    logPrefix: "mentora",
     open: false,
 
     notify: true,
     injectChanges: true,
-    proxy: "mentora.dev",
-    files: ['dist/styles/**'],
+       proxy: {
+      target: "https://mentora.dev/",
+      proxyOptions: {
+        changeOrigin: true, // ✅ manda Host: mentora.dev
+        secure: false       // ✅ no revienta si el cert local no es trusted
+      }
+    },
     port: 3025,
-    serveStatic: ["assets/css"],
-    files: "assets/css/cursos_estilos.css",
+    https: true,
+    serveStatic: [{
+      route: "/",
+      dir: "assets/css"
+    }],
+    files: ['dist/styles/**'],
     snippetOptions: {
       rule: {
         match: /<\/head>/i,
         fn: function (snippet, match) {
-          return '<link rel="stylesheet" type="text/css" href="/cursos_estilos.css"/>' + snippet + match;
+          return '<link rel="stylesheet" type="text/css" href="/mentoraStyles.css"/>' + snippet + match;
         }
       }
     }
@@ -49,21 +57,22 @@ gulp.task('browserSync-Local', () => {
 gulp.task('browserSync-Server', () => {
 
   browserSync.init({
-    logPrefix: "cursos-lui",
+    logPrefix: "mentora",
     open: true,
     https: true,
     online: true,
     notify: true,
+    port: 3100,
     injectChanges: true,
     proxy: "https://mentora.luiexplica.com/",
-
+    files: ['dist/styles/**'],
     serveStatic: ["dist/styles"],
-    files: "dist/styles/global.css",
+    files: "assets/css/mentoraStyles.css",
     snippetOptions: {
       rule: {
         match: /<\/head>/i,
         fn: function (snippet, match) {
-          return '<link rel="stylesheet" type="text/css" href="/cursos_estilos.css"/>' + snippet + match;
+          return '<link rel="stylesheet" type="text/css" href="/mentoraStyles.css"/>' + snippet + match;
         }
       }
     }
@@ -72,14 +81,14 @@ gulp.task('browserSync-Server', () => {
 });
 
 gulp.task('sass', () => {
-  return gulp.src('./resources/assets/styles/**/*.sass')
+  return gulp.src('./resources/assets/styles/**/*.scss')
 
     .pipe(sourcemaps.init())
     .pipe(sass({
       outputStyle: 'compressed',
       sourceMap: true,
 
-      maxConcurrency: 4,
+      // maxConcurrency: 4,
       parallel: true
     }).on('error', sass.logError))
     .pipe(sourcemaps.write())
@@ -90,14 +99,14 @@ gulp.task('sass', () => {
 });
 
 gulp.task('sassGeneral', () => {
-  return gulp.src('./resources/assets/styles/**/*.sass')
+  return gulp.src('./resources/assets/styles/**/*.scss')
 
     .pipe(sourcemaps.init())
     .pipe(sass({
       outputStyle: 'compressed',
       sourceMap: true,
 
-      maxConcurrency: 4,
+      // maxConcurrency: 4,
       parallel: true
     }).on('error', sass.logError))
     .pipe(sourcemaps.write())
@@ -125,7 +134,7 @@ gulp.task('js', () => {
 gulp.task('compile-init', gulp.series(gulp.parallel('sassGeneral', 'js')));
 gulp.task('watch', () => {
 
-  gulp.watch("./resources/assets/styles/**/*.sass", gulp.series('sass'));
+  gulp.watch("./resources/assets/styles/**/*.scss", gulp.series('sass'));
 
   gulp.watch("./resources/assets/scripts/**/*.js", gulp.series('js'));
 
@@ -136,3 +145,11 @@ gulp.task('local', gulp.series(gulp.parallel(
   'watch',
   'browserSync-Local'
 )));
+
+gulp.task('online', gulp.series(gulp.parallel(
+  'compile-init',
+  'watch',
+  'browserSync-Server'
+)));
+
+
