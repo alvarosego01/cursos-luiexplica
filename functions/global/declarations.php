@@ -10,7 +10,7 @@ add_action('wp_enqueue_scripts', 'init_scripts_styles');
 function setTypeUrl()
 {
   if ($_SERVER['SERVER_NAME'] == 'localhost') {
-    return '/cursos-lui';
+    return '/mentora';
   } else {
     return '';
   }
@@ -18,11 +18,12 @@ function setTypeUrl()
 
 function redirect_to_login_if_not_logged_in()
 {
+  return;
   global $pagenow;
   if (!is_user_logged_in()) {
 
     $requested_url = $_SERVER['REQUEST_URI'];
-    $redirect = setTypeUrl() . '/login-mentora';
+    $redirect = setTypeUrl() . '/login-3';
 
     if (isset($pagenow) && $pagenow === 'wp-login.php') {
       // echo 'AQUI -  '.  $pagenow;
@@ -37,7 +38,7 @@ function redirect_to_login_if_not_logged_in()
       return;
     }
 
-    if ($slug !== 'login-mentora' && $slug !== 'registro' && strpos($slug, 'activate') === false) {
+    if ($slug !== 'login-3' && $slug !== 'registration-2' && strpos($slug, 'activate') === false) {
       wp_redirect($redirect);
       exit();
     }
@@ -105,3 +106,10 @@ function delete_dir_recursively($dir)
   }
   @rmdir($dir);
 }
+
+function mostrar_page_id() {
+    if (is_page() || is_single()) {
+        echo '<div style="position: fixed; bottom: 0; left: 0; background: yellow; padding: 5px; z-index: 9999;">Page ID: ' . get_the_ID() . '</div>';
+    }
+}
+add_action('wp_footer', 'mostrar_page_id');

@@ -1,0 +1,77 @@
+@use 'sass:map';
+
+@import 'variables';  
+@import 'generals';
+
+$xs: 365px;
+$sm: 640px;
+$md: 820px;
+$pcTab: 1000px;
+$lg: 1199px;
+$xl: 1500px;
+$xl2: 1750px;
+
+@mixin _resp($breakpoint) {
+  @if $breakpoint == xs {
+    @media (min-width: ($xs)) { @content; }
+  } @else if $breakpoint == sm {
+    @media (min-width: ($sm)) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: ($md)) { @content; }
+  } @else if $breakpoint == pcTab {
+    @media (min-width: ($pcTab)) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: ($lg)) { @content; }
+  } @else if $breakpoint == xl {
+    @media (min-width: ($xl)) { @content; }
+  } @else if $breakpoint == 2xl {
+    @media (min-width: ($xl2)) { @content; }
+  }
+}
+
+$breakpoints: (
+  'xs': $xs,
+  'sm': $sm,
+  'md': $md,
+  'pcTab': $pcTab,
+  'lg': $lg,
+  'xl': $xl,
+  'xl2': $xl2
+);
+
+@function get-breakpoint($value) {
+  @if map.has-key($breakpoints, $value) {
+    @return map.get($breakpoints, $value);
+  } @else {
+    @return $value;
+  }
+}
+
+@mixin _respRange($desde: null, $hasta: null) {
+  $min-width: null;
+  $max-width: null;
+
+  @if $desde != null {
+    $min-width: get-breakpoint($desde);
+  }
+
+  @if $hasta != null {
+    $max-width: get-breakpoint($hasta);
+  }
+
+  @if $min-width != null and $max-width != null {
+    @media only screen and (min-width: #{$min-width}) and (max-width: #{$max-width}) {
+      @content;
+    }
+  } @else if $min-width != null {
+    @media only screen and (min-width: #{$min-width}) {
+      @content;
+    }
+  } @else if $max-width != null {
+    @media only screen and (max-width: #{$max-width}) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
