@@ -41,7 +41,8 @@ function redirect_to_login_if_not_logged_in()
     $allowed_slugs = [
       'login', 
       'registro', 
-      'privacy-policy'
+      'privacy-policy',
+      'terminos-y-condiciones'
     ];
 
     if (!in_array($slug, $allowed_slugs, true) && strpos($slug, 'activate') === false) {
