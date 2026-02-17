@@ -1,0 +1,37 @@
+
+
+// tutor-wrap tutor-wrap-parent tutor-dashboard tutor-frontend-dashboard
+.tutor-wrap.tutor-wrap-parent.tutor-dashboard.tutor-frontend-dashboard {
+  background-color: #f5f5f5;
+  padding-top: 125px!important;
+  .tutor-container {
+    padding: 40px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: $boxShadow1;
+
+
+    .tutor-row.tutor-frontend-dashboard-header {
+
+      &::after {
+        background: $lineColor;
+      }
+
+    }
+
+    .tutor-dashboard-permalinks {
+
+      &:before {
+        border-right-color: $lineColor;
+      }
+
+    }
+
+    .tutor-dashboard-menu-divider {
+      background-color: $lineColor;
+    }
+
+
+  }
+
+}

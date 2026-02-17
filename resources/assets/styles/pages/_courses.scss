@@ -1,0 +1,94 @@
+
+.tutor-wrap.tutor-course-top-info.tutor-page-wrap.tutor-wrap-parent.courses {
+  background-color: #f5f5f5;
+
+  .tutor-single-course-sidebar-more,
+  .tutor-card {
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    box-shadow: $boxShadow1;
+    overflow: hidden;
+
+
+  }
+
+  .tutor-card {
+    .tutor-card-body {
+      padding: 25px;
+      background-color: transparent;
+    }
+
+    .tutor-card-footer {
+      padding: 25px;
+    }
+
+  }
+
+  .tutor-single-course-sidebar-more {
+
+    // .tutor-course-details-instructors {
+    >div {
+      border: none;
+    }
+
+    .tutor-course-details-widget {
+      border-top: 1px solid var(--tutor-border-color);
+      // border-bottom: 1px solid var(--tutor-border-color);
+    }
+
+  }
+
+
+  .tutor-accordion {
+    .tutor-accordion-item {
+      border-radius: 20px;
+      overflow: hidden;
+
+    }
+
+    .tutor-accordion-item-header {
+      padding: 20px 25px;
+    }
+
+    .tutor-accordion-item-header.is-active {
+      background-color: #efe8d1;
+
+    }
+
+    .tutor-accordion-item-body-content {
+
+      .tutor-course-content-list {
+        .tutor-course-content-list-item {
+          padding: 15px 20px;
+        }
+      }
+
+    }
+
+  }
+
+  .tutor-is-sticky {
+    border-radius: 5px;
+    box-shadow: $boxShadow1;
+    // padding: 15px 15px;
+    // overflow: hidden;
+
+    .tutor-nav {
+      border: none !important;
+      // border-radius: 5px;
+
+    }
+  }
+
+  .tutor-course-thumbnail {
+    img {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: $boxShadow1;
+    }
+  }
+
+  
+
+}
