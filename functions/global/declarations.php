@@ -18,7 +18,7 @@ function setTypeUrl()
 
 function redirect_to_login_if_not_logged_in()
 {
-  
+
   global $pagenow;
   if (!is_user_logged_in()) {
 
@@ -39,8 +39,8 @@ function redirect_to_login_if_not_logged_in()
     }
 
     $allowed_slugs = [
-      'login', 
-      'registro', 
+      'login',
+      'registro',
       'privacy-policy',
       'terminos-y-condiciones'
     ];
@@ -113,15 +113,33 @@ function delete_dir_recursively($dir)
   @rmdir($dir);
 }
 
-function redirect_home_to_courses() {
-    // Verificar si la URL actual es exactamente la base (sin sub paths) y si el usuario no está logueado
-    $request_uri = $_SERVER['REQUEST_URI'];
-    if ($request_uri === '/' && is_user_logged_in()) {
-        wp_redirect(home_url('/courses/'));
-        exit;
-    }
+function redirect_home_to_courses()
+{
+  // Verificar si la URL actual es exactamente la base (sin sub paths) y si el usuario no está logueado
+  $request_uri = $_SERVER['REQUEST_URI'];
+  if ($request_uri === '/' && is_user_logged_in()) {
+    wp_redirect(home_url('/courses/'));
+    exit;
+  }
 }
 add_action('template_redirect', 'redirect_home_to_courses');
 
+function redirect_login_if_logged_in()
+{
+  if (is_user_logged_in()) {
+    $requested_url = $_SERVER['REQUEST_URI'];
+    $slug = trim(parse_url($requested_url, PHP_URL_PATH), '/');
 
 
+    $slugs = [
+      'login',
+      'registro',
+    ];
+
+    if (in_array($slug, $slugs, true)) {
+      wp_redirect(setTypeUrl() . '/courses');
+      exit();
+    }
+  }
+}
+add_action('template_redirect', 'redirect_login_if_logged_in');
