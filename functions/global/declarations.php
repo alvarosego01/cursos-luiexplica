@@ -113,3 +113,15 @@ function delete_dir_recursively($dir)
   @rmdir($dir);
 }
 
+function redirect_home_to_courses() {
+    // Verificar si la URL actual es exactamente la base (sin sub paths) y si el usuario no está logueado
+    $request_uri = $_SERVER['REQUEST_URI'];
+    if ($request_uri === '/' && is_user_logged_in()) {
+        wp_redirect(home_url('/courses/'));
+        exit;
+    }
+}
+add_action('template_redirect', 'redirect_home_to_courses');
+
+
+
