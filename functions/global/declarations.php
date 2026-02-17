@@ -18,12 +18,12 @@ function setTypeUrl()
 
 function redirect_to_login_if_not_logged_in()
 {
-  return;
+  
   global $pagenow;
   if (!is_user_logged_in()) {
 
     $requested_url = $_SERVER['REQUEST_URI'];
-    $redirect = setTypeUrl() . '/login-3';
+    $redirect = setTypeUrl() . '/login';
 
     if (isset($pagenow) && $pagenow === 'wp-login.php') {
       // echo 'AQUI -  '.  $pagenow;
@@ -38,14 +38,19 @@ function redirect_to_login_if_not_logged_in()
       return;
     }
 
-    if ($slug !== 'login-3' && $slug !== 'registration-2' && strpos($slug, 'activate') === false) {
+    $allowed_slugs = [
+      'login', 
+      'registro', 
+      'privacy-policy'
+    ];
+
+    if (!in_array($slug, $allowed_slugs, true) && strpos($slug, 'activate') === false) {
       wp_redirect($redirect);
       exit();
     }
   }
 }
 add_action('template_redirect', 'redirect_to_login_if_not_logged_in');
-
 
 function render_custom_lost_password_form()
 {
