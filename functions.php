@@ -10,7 +10,7 @@ require get_stylesheet_directory() . '/functions/index.php';
 function child_theme_enqueue_styles()
 {
 
-    $parent_style = 'BuddyBoss Theme'; // Este es el nombre del estilo del tema padre.
+    $parent_style = 'Tutor Base'; // Este es el nombre del estilo del tema padre.
 
     wp_enqueue_style($parent_style, get_template_directory_uri() . '/style.css');
     wp_enqueue_style(

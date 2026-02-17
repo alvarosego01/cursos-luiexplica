@@ -10,7 +10,7 @@ add_action('wp_enqueue_scripts', 'init_scripts_styles');
 function setTypeUrl()
 {
   if ($_SERVER['SERVER_NAME'] == 'localhost') {
-    return '/cursos-lui';
+    return '/mentora';
   } else {
     return '';
   }
@@ -18,11 +18,12 @@ function setTypeUrl()
 
 function redirect_to_login_if_not_logged_in()
 {
+  
   global $pagenow;
   if (!is_user_logged_in()) {
 
     $requested_url = $_SERVER['REQUEST_URI'];
-    $redirect = setTypeUrl() . '/login-mentora';
+    $redirect = setTypeUrl() . '/login';
 
     if (isset($pagenow) && $pagenow === 'wp-login.php') {
       // echo 'AQUI -  '.  $pagenow;
@@ -37,14 +38,19 @@ function redirect_to_login_if_not_logged_in()
       return;
     }
 
-    if ($slug !== 'login-mentora' && $slug !== 'registro' && strpos($slug, 'activate') === false) {
+    $allowed_slugs = [
+      'login', 
+      'registro', 
+      'privacy-policy'
+    ];
+
+    if (!in_array($slug, $allowed_slugs, true) && strpos($slug, 'activate') === false) {
       wp_redirect($redirect);
       exit();
     }
   }
 }
 add_action('template_redirect', 'redirect_to_login_if_not_logged_in');
-
 
 function render_custom_lost_password_form()
 {
@@ -105,3 +111,4 @@ function delete_dir_recursively($dir)
   }
   @rmdir($dir);
 }
+
