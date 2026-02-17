@@ -114,8 +114,9 @@ function delete_dir_recursively($dir)
 }
 
 function redirect_home_to_courses() {
-    // Verificar si estamos en la página principal (home) sin parámetros adicionales y si el usuario no está logueado
-    if (is_front_page() && empty($_GET) && !is_user_logged_in()) {
+    // Verificar si la URL actual es exactamente la base (sin sub paths) y si el usuario no está logueado
+    $request_uri = $_SERVER['REQUEST_URI'];
+    if ($request_uri === '/' && is_user_logged_in()) {
         wp_redirect(home_url('/courses/'));
         exit;
     }
